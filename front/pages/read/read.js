@@ -6,8 +6,9 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '你好',
-    TheEmotion:'愤怒'
+    TheText: '',
+    TheEmotion:'',
+    src:''
   },
   //事件处理函数
   start: function () {
@@ -38,6 +39,19 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    wx.request({
+      url: 'http://166.111.139.44:8001/datagen',
+      method: 'GET',
+      success: function (res) {
+          //console.log(that.data.TheText)
+          that.setData({
+            TheText: res.data.text,
+            TheEmotion: res.data.emotion
+
+          })
+          //console.log(that.data.TheText)
+      }
+    })
     this.recorderManager = wx.getRecorderManager();
     this.recorderManager.onError(function () {
       // 录音失败的回调处理
@@ -47,13 +61,14 @@ Page({
       that.setData({
         src: res.tempFilePath
       })
+      
       wx.uploadFile({
         url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
         filePath: res.tempFilePath,
         name: 'audio',
         formData: {
-          text: '111',
-          emotion: '222'
+          text: that.data.TheText,
+          emotion: that.data.TheEmotion
         },
         success: res => {
           const url = JSON.parse(res.data);//将这个url提交保存
