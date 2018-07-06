@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="container">
+  <!--view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view-->
+  <text class="guide">{{'请用以下感情阅读下方文本'}}</text>
+  <view class="emotion-container">
+    <text class="emotion">{{'感情： '+TheEmotion}}</text>
+  </view>
+  <view class="text-container">
+    <text class="text">{{TheText}}</text>
+  </view>
+  <view class="btn-container">
+    <button bindtap="start" class='btn'>开始录音</button>
+    <button bindtap="stop" class='btn'>停止录音</button>
+    <button bindtap="play" class='btn'>播放录音</button>
+  </view>
+</view>
