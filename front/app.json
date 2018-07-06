@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/read/read",
+    "pages/check/check",
     "pages/logs/logs"
   ],
   "window":{
