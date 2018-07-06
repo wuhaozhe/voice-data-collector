@@ -7,7 +7,7 @@ var tempFilePath;
 Page({
   data: {
     TheText: '你好',
-    TheEmotion: '愤怒'
+    TheEmotion:'愤怒'
   },
   //事件处理函数
   start: function () {
@@ -31,6 +31,11 @@ Page({
     console.log(this.innerAudioContext.src)
 
   },
+  nex: function () {
+    wx.navigateTo({
+      url: '../read/read'
+    })
+  },
   onLoad: function () {
     var that = this;
     this.recorderManager = wx.getRecorderManager();
@@ -42,6 +47,22 @@ Page({
       that.setData({
         src: res.tempFilePath
       })
+      wx.uploadFile({
+        url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
+        filePath: res.tempFilePath,
+        name: 'audio',
+        formData: {
+          text: '111',
+          emotion: '222'
+        },
+        success: res => {
+          const url = JSON.parse(res.data);//将这个url提交保存
+          console.log('yes')
+        },
+        fail: res => {
+          console.log('this.innerAudioContext.src')
+        },
+      });
       console.log(res.tempFilePath)
     });
   }

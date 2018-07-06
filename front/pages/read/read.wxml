@@ -11,5 +11,6 @@
     <button bindtap="start" class='btn'>开始录音</button>
     <button bindtap="stop" class='btn'>停止录音</button>
     <button bindtap="play" class='btn'>播放录音</button>
+    <button bindtap="nex" class='btn'>下一段话</button>
   </view>
 </view>
