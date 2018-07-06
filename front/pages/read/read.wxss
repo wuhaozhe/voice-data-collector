@@ -15,11 +15,18 @@
 .userinfo-nickname {
   color: #aaa;
 }
-
-.usermotto {
-  margin-top: 200px;
+.emotion-container{
+  margin-top: 20px;
 }
-
+.text-container{
+  margin-top: 60px;
+}
+.btn-container{
+  margin-top: 40px;
+}
 .btn{
+  margin-top: 20px;
+}
+.usermotto {
   margin-top: 20px;
 }
