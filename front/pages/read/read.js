@@ -1,98 +1,69 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const recorderManager = wx.getRecorderManager()
+const innerAudioContext = wx.createInnerAudioContext()
+var tempFilePath;
 Page({
   data: {
     TheText: '你好',
-    TheEmotion: '愤怒',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    TheEmotion:'愤怒'
   },
   //事件处理函数
   start: function () {
-
-    const options = {
-      duration: 10000,//指定录音的时长，单位 ms
-      sampleRate: 16000,//采样率
-      numberOfChannels: 1,//录音通道数
-      encodeBitRate: 96000,//编码码率
-      format: 'mp3',//音频格式，有效值 aac/mp3
-      frameSize: 50,//指定帧大小，单位 KB
-    }
     //开始录音
-    recorderManager.start(options);
-    recorderManager.onStart(() => {
-      console.log('recorder start')
+    this.recorderManager.start({
+      format: 'mp3'  // 如果录制acc类型音频则改成aac
     });
-    //错误回调
-    recorderManager.onError((res) => {
-      console.log(res);
-    })
   },
   //停止录音
   stop: function () {
-    recorderManager.stop();
-    recorderManager.onStop((res) => {
-      this.tempFilePath = res.tempFilePath;
-      console.log('停止录音', res.tempFilePath)
-      const { tempFilePath } = res
-    })
+    this.recorderManager.stop()
   },
   //播放声音
   play: function () {
-
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = this.tempFilePath,
-      innerAudioContext.onPlay(() => {
-        console.log('开始播放')
-      })
-    innerAudioContext.onError((res) => {
-      console.log(res.errMsg)
-      console.log(res.errCode)
+    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext.onError((res) => {
+      // 播放音频失败的回调
     })
+    this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
+    this.innerAudioContext.play()
+    console.log(this.innerAudioContext.src)
 
   },
-  bindViewTap: function() {
+  nex: function () {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../read/read'
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+    var that = this;
+    this.recorderManager = wx.getRecorderManager();
+    this.recorderManager.onError(function () {
+      // 录音失败的回调处理
+    });
+    this.recorderManager.onStop(function (res) {
+      // 停止录音之后，把录取到的音频放在res.tempFilePath
+      that.setData({
+        src: res.tempFilePath
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
+      wx.uploadFile({
+        url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
+        filePath: res.tempFilePath,
+        name: 'audio',
+        formData: {
+          text: '111',
+          emotion: '222'
+        },
         success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+          const url = JSON.parse(res.data);//将这个url提交保存
+          console.log('yes')
+        },
+        fail: res => {
+          console.log('this.innerAudioContext.src')
+        },
+      });
+      console.log(res.tempFilePath)
+    });
   }
 })
