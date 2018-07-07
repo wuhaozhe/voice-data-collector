@@ -41,7 +41,7 @@ def get_rand_audio():
 @app.route('/download_audio', methods = ['GET'])
 def download_audio():
     filename = request.args.get('filename')
-    response = send_file("./data/user_audio/" + filename)
+    response = send_file("./data/user_audio/" + filename, as_attachment = True, attachment_filename = filename)
     print(response)
     if response != None:
         return response
