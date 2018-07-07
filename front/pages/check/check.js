@@ -26,12 +26,11 @@ Page({
   play: function () {
     const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.data.Sound
+    innerAudioContext.src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio/' + this.data.FileName
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
     })
     innerAudioContext.onError((res) => {
-      console.log("ggg")
       console.log(res.errMsg)
       console.log(res.errCode)
     })
@@ -81,13 +80,12 @@ Page({
   },
   getData: function() {
     wx.request({
-      url: 'http://166.111.139.44:8001/download_audio',
+      url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_audio',
       method: 'GET',
       success: (res) => {
         this.setData({TheEmotion: res.header.emotion,
                       TheText: res.header.text,
-                      FileName: res.header["Content-Disposition"].split("filename=")[1],
-                      Sound: res.data})
+                      FileName: res.header.filename})
         console.log(this.data.FileName)
       }
     })

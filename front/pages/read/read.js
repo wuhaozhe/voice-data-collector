@@ -45,7 +45,7 @@ Page({
   onLoad: function () {
     var that = this;
     wx.request({
-      url: 'http://166.111.139.44:8001/datagen',
+      url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
       method: 'GET',
       success: function (res) {
           //console.log(that.data.TheText)
@@ -68,7 +68,7 @@ Page({
       })
       
       wx.uploadFile({
-        url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
+        url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
         filePath: that.data.src,
         name: 'audio',
         formData: {
