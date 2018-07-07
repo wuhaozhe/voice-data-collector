@@ -42,6 +42,27 @@ Page({
       url: '../index/index'
     })
   },
+  uplo: function () {
+    var that = this;
+    wx.uploadFile({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
+      filePath: that.data.src,
+      name: 'audio',
+      formData: {
+        text: that.data.TheText,
+        emotion: that.data.TheEmotion
+      },
+      success: res => {
+        const url = JSON.parse(res.data);//将这个url提交保存
+        console.log('yes')
+        console.log(that.data.src)
+      },
+      fail: res => {
+        console.log('no')
+        console.log(that.data.src)
+      },
+    });
+  },
   onLoad: function () {
     var that = this;
     wx.request({
@@ -66,24 +87,6 @@ Page({
       that.setData({
         src: res.tempFilePath
       })
-      
-      wx.uploadFile({
-        url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
-        filePath: that.data.src,
-        name: 'audio',
-        formData: {
-          text: that.data.TheText,
-          emotion: that.data.TheEmotion
-        },
-        success: res => {
-          const url = JSON.parse(res.data);//将这个url提交保存
-          console.log('yes')
-          console.log(that.data.src)
-        },
-        fail: res => {
-          console.log('this.innerAudioContext.src')
-        },
-      });
       console.log(res.tempFilePath)
     });
   }

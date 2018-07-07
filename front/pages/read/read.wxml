@@ -11,6 +11,7 @@
     <button bindtap="start" class='btn'>开始录音</button>
     <button bindtap="stop" class='btn'>停止录音</button>
     <button bindtap="play" class='btn'>播放录音</button>
+    <button bindtap="uplo" class='btn'>确定上传</button>
     <button bindtap="nex" class='btn'>下一段话</button>
     <button bindtap="bac" class='btn'>返回主页</button>
   </view>
