@@ -24,18 +24,49 @@ Page({
 
   //播放声音
   play: function () {
-    const innerAudioContext = wx.createInnerAudioContext()
-    innerAudioContext.autoplay = true
-    innerAudioContext.src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + this.data.FileName
-    console.log(innerAudioContext.src)
-    innerAudioContext.onPlay(() => {
+    const backgroundAudioManager = wx.createInnerAudioContext()
+
+    backgroundAudioManager.onPlay(() => {
       console.log('开始播放')
     })
-    innerAudioContext.onError((res) => {
+    backgroundAudioManager.onError((res) => {
+      console.log("errrrrrrrrrrrrrror")
       console.log(res.errMsg)
       console.log(res.errCode)
     })
-    innerAudioContext.play()
+
+    var sysInfo = wx.getSystemInfoSync()
+    if (sysInfo.platform == 'ios') {
+    }
+
+    var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + this.data.FileName
+    console.log(src)
+
+    var downloadTask = wx.downloadFile({
+      url: src,
+      success: function (res) {
+        console.log(res)
+        var path = res.tempFilePath
+        console.log(path)
+        backgroundAudioManager.src = path
+        backgroundAudioManager.play()
+
+      },
+      fail: function ({ errMsg }) {
+        console.log('downloadFile fail, err is:', errMsg)
+      },
+    })
+
+
+    
+   
+    backgroundAudioManager.title = "nnnn"
+    
+
+    console.log(backgroundAudioManager.src)
+    console.log("hhh")
+    
+
 
   },
   bindViewTap: function() {
