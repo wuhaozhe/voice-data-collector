@@ -37,6 +37,11 @@ Page({
       url: '../read/read'
     })
   },
+  bac: function () {
+    wx.navigateTo({
+      url: '../index/index'
+    })
+  },
   onLoad: function () {
     var that = this;
     wx.request({
@@ -64,7 +69,7 @@ Page({
       
       wx.uploadFile({
         url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
-        filePath: res.tempFilePath,
+        filePath: that.data.src,
         name: 'audio',
         formData: {
           text: that.data.TheText,
@@ -73,6 +78,7 @@ Page({
         success: res => {
           const url = JSON.parse(res.data);//将这个url提交保存
           console.log('yes')
+          console.log(that.data.src)
         },
         fail: res => {
           console.log('this.innerAudioContext.src')
