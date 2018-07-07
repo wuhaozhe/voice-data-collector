@@ -39,7 +39,7 @@ Page({
     if (sysInfo.platform == 'ios') {
     }
 
-    var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + this.data.FileName
+    var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + encodeURI(this.data.FileName)
     console.log(src)
 
     var downloadTask = wx.downloadFile({
