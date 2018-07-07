@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   data: {
-    TheText: '你好',
-    TheEmotion: '愤怒',
+    TheText: '',
+    TheEmotion: 'fff',
+    FileName: '',
+    Sound: '',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -14,48 +16,25 @@ Page({
       { name: 'n', value: '不一致'}
     ]
   },
-  //事件处理函数
-  start: function () {
 
-    const options = {
-      duration: 10000,//指定录音的时长，单位 ms
-      sampleRate: 16000,//采样率
-      numberOfChannels: 1,//录音通道数
-      encodeBitRate: 96000,//编码码率
-      format: 'mp3',//音频格式，有效值 aac/mp3
-      frameSize: 50,//指定帧大小，单位 KB
-    }
-    //开始录音
-    recorderManager.start(options);
-    recorderManager.onStart(() => {
-      console.log('recorder start')
-    });
-    //错误回调
-    recorderManager.onError((res) => {
-      console.log(res);
-    })
+  onShow: function(options) {
+    console.log(this.data.TheEmotion)
+    this.getData()
   },
-  //停止录音
-  stop: function () {
-    recorderManager.stop();
-    recorderManager.onStop((res) => {
-      this.tempFilePath = res.tempFilePath;
-      console.log('停止录音', res.tempFilePath)
-      const { tempFilePath } = res
-    })
-  },
+
   //播放声音
   play: function () {
-
+    const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.autoplay = true
-    innerAudioContext.src = this.tempFilePath,
-      innerAudioContext.onPlay(() => {
-        console.log('开始播放')
-      })
+    innerAudioContext.src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio/' + this.data.FileName
+    innerAudioContext.onPlay(() => {
+      console.log('开始播放')
+    })
     innerAudioContext.onError((res) => {
       console.log(res.errMsg)
       console.log(res.errCode)
     })
+    innerAudioContext.play()
 
   },
   bindViewTap: function() {
@@ -97,6 +76,18 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  getData: function() {
+    wx.request({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_audio',
+      method: 'GET',
+      success: (res) => {
+        this.setData({TheEmotion: res.header.emotion,
+                      TheText: res.header.text,
+                      FileName: res.header.filename})
+        console.log(this.data.FileName)
+      }
     })
   }
 })

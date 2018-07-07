@@ -6,14 +6,15 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '你好',
-    TheEmotion:'愤怒'
+    TheText: '',
+    TheEmotion: '',
+    src: ''
   },
   //事件处理函数
   start: function () {
     //开始录音
     this.recorderManager.start({
-      sampleRate: 16000
+      format: 'mp3'  // 如果录制acc类型音频则改成aac
     });
   },
   //停止录音
@@ -36,8 +37,47 @@ Page({
       url: '../read/read'
     })
   },
+  bac: function () {
+    wx.navigateTo({
+      url: '../index/index'
+    })
+  },
+  uplo: function () {
+    var that = this;
+    wx.uploadFile({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
+      filePath: that.data.src,
+      name: 'audio',
+      formData: {
+        text: that.data.TheText,
+        emotion: that.data.TheEmotion
+      },
+      success: res => {
+        const url = JSON.parse(res.data);//将这个url提交保存
+        console.log('yes')
+        console.log(that.data.src)
+      },
+      fail: res => {
+        console.log('no')
+        console.log(that.data.src)
+      },
+    });
+  },
   onLoad: function () {
     var that = this;
+    wx.request({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
+      method: 'GET',
+      success: function (res) {
+        //console.log(that.data.TheText)
+        that.setData({
+          TheText: res.data.text,
+          TheEmotion: res.data.emotion
+
+        })
+        //console.log(that.data.TheText)
+      }
+    })
     this.recorderManager = wx.getRecorderManager();
     this.recorderManager.onError(function () {
       // 录音失败的回调处理
@@ -47,25 +87,6 @@ Page({
       that.setData({
         src: res.tempFilePath
       })
-      wx.uploadFile({
-        url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
-        filePath: res.tempFilePath,
-        name: 'audio',
-        formData: {
-          text: '111',
-          emotion: '222'
-        },
-        header: {
-          'content-type': 'multipart/form-data'
-        },
-        success: res => {
-          const url = JSON.parse(res.data);//将这个url提交保存
-          console.log('yes')
-        },
-        fail: res => {
-          console.log('this.innerAudioContext.src')
-        },
-      });
       console.log(res.tempFilePath)
     });
   }
