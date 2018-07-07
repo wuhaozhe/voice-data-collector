@@ -56,6 +56,12 @@ Page({
         const url = JSON.parse(res.data);//将这个url提交保存
         console.log('yes')
         console.log(that.data.src)
+        wx.showToast({
+          title: '上传成功',
+          icon: 'succes',
+          duration: 1000,
+          mask: true
+        })
       },
       fail: res => {
         console.log('no')
