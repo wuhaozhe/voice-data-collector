@@ -14,7 +14,9 @@ Page({
     items: [
       { name: 'y', value: '一致', checked: 'true'},
       { name: 'n', value: '不一致'}
-    ]
+    ],
+    chosen: 'y',
+    submitDisable: false
   },
 
   onShow: function(options) {
@@ -22,14 +24,50 @@ Page({
     this.getData()
   },
 
+  radioChange: function(e) {
+    var tmp = e.detail.value
+    if (tmp == '一致') {
+      this.setData({chosen: 'y'})
+    }
+    else {
+      this.setDate({chosen: 'n'})
+    }
+   
+  },
+
+  next: function() {
+    console.log("next")
+    this.getData()
+  },
+
+  submit: function() {
+    this.setData({submitDisable: true})
+    wx.request({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        text: this.data.TheText,
+        emotion: this.data.TheEmotion,
+        filename: this.data.FileName,
+        result: this.data.chosen
+      },
+      success: function (res) {
+        console.log("ojbk")
+      }
+    })
+  },
+
   //播放声音
   play: function () {
-    const backgroundAudioManager = wx.createInnerAudioContext()
+    const audio = wx.createInnerAudioContext()
 
-    backgroundAudioManager.onPlay(() => {
+    audio.onPlay(() => {
       console.log('开始播放')
     })
-    backgroundAudioManager.onError((res) => {
+    audio.onError((res) => {
       console.log("errrrrrrrrrrrrrror")
       console.log(res.errMsg)
       console.log(res.errCode)
@@ -40,6 +78,7 @@ Page({
     }
 
     var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + this.data.FileName
+
     console.log(src)
 
     var downloadTask = wx.downloadFile({
@@ -48,26 +87,17 @@ Page({
         console.log(res)
         var path = res.tempFilePath
         console.log(path)
-        backgroundAudioManager.src = path
-        backgroundAudioManager.play()
+        audio.src = path
+        audio.play()
 
       },
       fail: function ({ errMsg }) {
         console.log('downloadFile fail, err is:', errMsg)
       },
     })
-
-
-    
-   
-    backgroundAudioManager.title = "nnnn"
-    
-
-    console.log(backgroundAudioManager.src)
+    audio.title = "audio"
+    console.log(audio.src)
     console.log("hhh")
-    
-
-
   },
   bindViewTap: function() {
     wx.navigateTo({
@@ -119,6 +149,7 @@ Page({
                       TheText: res.data.text,
                       FileName: res.data.filename})
         console.log(this.data.FileName)
+        this.setData({ submitDisable: false })
       }
     })
   }

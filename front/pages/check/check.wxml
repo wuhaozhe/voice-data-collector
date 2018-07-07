@@ -26,9 +26,9 @@
     </radio-group>
   </view>
   <view class="btn-container">
-    <button>提交</button>
+    <button bindtap="submit" disabled='{{submitDisable}}'>提交</button>
   </view>
   <view class="btn-container">
-    <button>下一个</button>
+    <button bindtap="next">下一个</button>
   </view>
 </view>
