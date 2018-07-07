@@ -5,7 +5,7 @@ const app = getApp()
 Page({
   data: {
     TheText: '',
-    TheEmotion: 'fff',
+    TheEmotion: '',
     FileName: '',
     Sound: '',
     userInfo: {},
@@ -26,7 +26,8 @@ Page({
   play: function () {
     const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.autoplay = true
-    innerAudioContext.src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio/' + this.data.FileName
+    innerAudioContext.src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + this.data.FileName
+    console.log(innerAudioContext.src)
     innerAudioContext.onPlay(() => {
       console.log('开始播放')
     })
@@ -83,9 +84,9 @@ Page({
       url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_audio',
       method: 'GET',
       success: (res) => {
-        this.setData({TheEmotion: res.header.emotion,
-                      TheText: res.header.text,
-                      FileName: res.header.filename})
+        this.setData({TheEmotion: res.data.emotion,
+                      TheText: res.data.text,
+                      FileName: res.data.filename})
         console.log(this.data.FileName)
       }
     })
