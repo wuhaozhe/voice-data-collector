@@ -1,0 +1,34 @@
+<!--index.wxml-->
+<view class="container">
+  <!--view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view-->
+  <text class="guide">{{'听听这句话是否符合如下情感'}}</text>
+  <view class="emotion-container">
+    <text class="emotion">{{'感情： '+TheEmotion}}</text>
+  </view>
+  <view class="text-container">
+    <text class="text">{{TheText}}</text>
+  </view>
+  <view class="btn-container">
+    <button bindtap="start" class='btn'>播放</button>
+  </view>
+  <view class="btn-container">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{items}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>
+        {{item.value}}
+      </label>
+    </radio-group>
+  </view>
+  <view class="btn-container">
+    <button>提交</button>
+  </view>
+  <view class="btn-container">
+    <button>下一个</button>
+  </view>
+</view>
