@@ -7,7 +7,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view-->
-  <text class="guide">{{'请用以下感情阅读下方文本'}}</text>
+  <text class="guide">{{'听听这句话是否符合如下情感'}}</text>
   <view class="emotion-container">
     <text class="emotion">{{'感情： '+TheEmotion}}</text>
   </view>
@@ -15,8 +15,20 @@
     <text class="text">{{TheText}}</text>
   </view>
   <view class="btn-container">
-    <button bindtap="start" class='btn'>开始录音</button>
-    <button bindtap="stop" class='btn'>停止录音</button>
-    <button bindtap="play" class='btn'>播放录音</button>
+    <button bindtap="start" class='btn'>播放</button>
+  </view>
+  <view class="btn-container">
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{items}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>
+        {{item.value}}
+      </label>
+    </radio-group>
+  </view>
+  <view class="btn-container">
+    <button>提交</button>
+  </view>
+  <view class="btn-container">
+    <button>下一个</button>
   </view>
 </view>

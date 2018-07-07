@@ -8,7 +8,11 @@ Page({
     TheEmotion: '愤怒',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    items: [
+      { name: 'y', value: '一致', checked: 'true'},
+      { name: 'n', value: '不一致'}
+    ]
   },
   //事件处理函数
   start: function () {
