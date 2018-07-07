@@ -14,7 +14,7 @@ Page({
   start: function () {
     //开始录音
     this.recorderManager.start({
-      format: 'mp3'  // 如果录制acc类型音频则改成aac
+      sampleRate: 16000
     });
   },
   //停止录音

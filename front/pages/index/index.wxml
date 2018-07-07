@@ -2,6 +2,6 @@
 <view class="container">
   <view class="btn-container">
     <button bindtap="read" class='btn'>朗读</button>
-    <button bindtap="check" class='btn'>测试</button>
+    <button bindtap="check" class='btn'>检查</button>
   </view>
 </view>
