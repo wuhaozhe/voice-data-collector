@@ -13,7 +13,7 @@ Page({
   start: function () {
     //开始录音
     this.recorderManager.start({
-      format: 'mp3'  // 如果录制acc类型音频则改成aac
+      sampleRate: 16000
     });
   },
   //停止录音
@@ -48,12 +48,15 @@ Page({
         src: res.tempFilePath
       })
       wx.uploadFile({
-        url: 'http://166.111.139.44:8001/upload_audio',//开发者文件上传地址
+        url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
         filePath: res.tempFilePath,
         name: 'audio',
         formData: {
           text: '111',
           emotion: '222'
+        },
+        header: {
+          'content-type': 'multipart/form-data'
         },
         success: res => {
           const url = JSON.parse(res.data);//将这个url提交保存
