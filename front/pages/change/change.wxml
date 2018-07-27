@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="container">
+  <text class="guide">{{'请用以下感情阅读下方文本'}}</text>
+  <view class="emotion-container">
+    <text class="emotion">{{'感情： '+TheEmotion}}</text>
+  </view>
+  <view class="text-container">
+    <text class="text">{{TheText}}</text>
+  </view>
+  <view class="btn-container">
+
+    <view class="bt-bt-container">
+    <view bindtap="{{current_tag == 1?'stop':'start'}}" class="{{current_tag == 1?'iconfont icon-timeout':'iconfont icon-sound'}}"></view>
+    <text class="text">{{current_tag == 1?'停止录音':'开始录音'}}</text>
+    </view>
+
+    <view class="bt-bt-container">
+      <view bindtap="play" class='iconfont icon-playcircle'></view>
+      <text class="text">播放录音</text>
+    </view>
+
+    <!--view bindtap="uplo" class='iconfont icon-upload'></view-->
+    <!--button bindtap="stop" class='btn'>停止录音</button-->
+    <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
+  </view>
+  <text class="text"> -------------------------- </text>
+  <text class="text"> --------------------- </text>
+  <text class="text"> --------------- </text>
+  <text class="text"> --------- </text>
+  <view class="btn-container">
+    <text class="text">转换完成： </text>
+    <view bindtap="playafter" class='iconfont icon-playcircle'></view>
+  </view>
+  
+  <view class="btn-container">
+    <text class="text">换一句话： </text>
+    <view bindtap="nex" class='iconfont icon-reload'></view>
+  </view>
+  <view class="btn-container">
+    <text class="text">返回主页： </text>
+    <view bindtap="bac" class='iconfont icon-arrowleft'></view>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 766417 */
+  src: url('//at.alicdn.com/t/font_766417_9hawrm2hrg.eot');
+  src: url('//at.alicdn.com/t/font_766417_9hawrm2hrg.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_766417_9hawrm2hrg.woff') format('woff'),
+  url('//at.alicdn.com/t/font_766417_9hawrm2hrg.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_766417_9hawrm2hrg.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 49px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
+.icon-download:before { content: "\e7f1"}
+.icon-upload:before{content: "\e7f0"}
+.icon-arrowup:before {content: "\e7ef"}
+.icon-arrowright:before {content: "\e7ee"}
+.icon-sound:before {content: "\e7db"}
+.icon-timeout:before {content: "\e783"}
+.icon-playcircle:before {content: "\e781"}
+.icon-checkcircle:before {content: "\e77d"}
+.icon-notification:before {content: "\e7da"}
+.icon-reload:before {content: "\e788"}
+.icon-arrowleft:before {content: "\e7f2"}

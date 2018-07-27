@@ -11,10 +11,10 @@
   <view class="btn-container">
     <view bindtap="read" class='btn'>朗读</view>
     <view bindtap="check" class='btn'>检查</view>
+    <view bindtap="change" class='btn'>转换</view>
   </view>
 
   <view class="copyright-container">
-    <text>@版权由吴昊哲大佬所有</text>
+    <text>@跨语言情感迁移小组</text>
   </view>
 </view>
-

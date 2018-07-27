@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/read/read",
     "pages/check/check",
+    "pages/change/change",
     "pages/logs/logs"
   ],
   "window":{
