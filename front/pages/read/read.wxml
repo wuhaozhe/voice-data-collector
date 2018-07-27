@@ -28,7 +28,7 @@
     </view>
 
     <view class="bt-bt-container">
-      <view bindtap="{{current_tag == 1?null:'play'}}" class="{{current_tag == 1?'iconfont icon-read':'iconfont icon-playcircle'}}"></view>
+      <view bindtap="{{play_tag == 1?'pause':(current_tag == 1?null:'play')}}" class="{{play_tag == 1?'iconfont icon-timeout':(current_tag == 1?'iconfont icon-read':'iconfont icon-playcircle')}}"></view>
       <text class="text">{{play_tag == 1?'停止播放':(current_tag == 1?'等待完成':'播放录音')}}</text>
     </view>
    

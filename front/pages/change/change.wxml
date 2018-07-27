@@ -1,11 +1,23 @@
-<!--index.wxml-->
-<view class="container">
-  <text class="guide">{{'请用以下感情阅读下方文本'}}</text>
-  <view class="emotion-container">
-    <text class="emotion">{{'感情： '+TheEmotion}}</text>
-  </view>
-  <view class="text-container">
-    <text class="text">{{TheText}}</text>
+<!--read.wxml-->
+<view class="main-container">
+  <view class="title-container">
+    <view class="title-inner-container">
+      <view class="title-pack">
+        <view class="title-text">
+          {{'请用'}}
+        </view>
+        <view class="title-text" style="color: #FF69B4">
+          {{TheEmotion}}
+        </view>
+        <view class="title-text">
+          {{'的感情阅读下方文本:'}}
+        </view>
+      </view>
+      
+      <view class="subtitle-text">
+        {{TheText}}
+      </view>
+    </view>
   </view>
   <view class="btn-container">
 
@@ -15,29 +27,17 @@
     </view>
 
     <view class="bt-bt-container">
-      <view bindtap="play" class='iconfont icon-playcircle'></view>
-      <text class="text">播放录音</text>
+      <view bindtap="{{play_tag == 1?'pause':(current_tag == 1?null:'play')}}" class="{{play_tag == 1?'iconfont icon-timeout':(current_tag == 1?'iconfont icon-read':'iconfont icon-playcircle')}}"></view>
+      <text class="text">{{play_tag == 1?'停止播放':(current_tag == 1?'等待完成':'播放录音')}}</text>
     </view>
-
+   
     <!--view bindtap="uplo" class='iconfont icon-upload'></view-->
     <!--button bindtap="stop" class='btn'>停止录音</button-->
     <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
   </view>
-  <text class="text"> -------------------------- </text>
-  <text class="text"> --------------------- </text>
-  <text class="text"> --------------- </text>
-  <text class="text"> --------- </text>
+   <button bindtap="uplo" class = "btn" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">上传录音</button>
   <view class="btn-container">
     <text class="text">转换完成： </text>
     <view bindtap="playafter" class='iconfont icon-playcircle'></view>
-  </view>
-  
-  <view class="btn-container">
-    <text class="text">换一句话： </text>
-    <view bindtap="nex" class='iconfont icon-reload'></view>
-  </view>
-  <view class="btn-container">
-    <text class="text">返回主页： </text>
-    <view bindtap="bac" class='iconfont icon-arrowleft'></view>
   </view>
 </view>

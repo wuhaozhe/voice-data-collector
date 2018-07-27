@@ -6,9 +6,11 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '',
-    TheEmotion: '',
+    TheText: '哈哈哈',
+    TheEmotion: '愤怒',
     current_tag: null,
+    play_tag: null,
+    submitDisable: false,
     src: ''
   },
   //事件处理函数
@@ -32,12 +34,26 @@ Page({
   },
   //播放声音
   play: function () {
+    console.log('play da')
     this.innerAudioContext = wx.createInnerAudioContext();
     this.innerAudioContext.onError((res) => {
       // 播放音频失败的回调
     })
     this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
+    this.setData({
+      play_tag: 1,
+    })
     this.innerAudioContext.play()
+    console.log(this.innerAudioContext.src)
+
+  },
+  pause: function () {
+    console.log('pause da')
+    this.setData({
+      play_tag: 0,
+    })
+    this.innerAudioContext.pause();
+    
     console.log(this.innerAudioContext.src)
 
   },
@@ -75,6 +91,19 @@ Page({
         const url = JSON.parse(res.data);//将这个url提交保存
         console.log('yes')
         console.log(that.data.src)
+        wx.request({
+          url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
+          method: 'GET',
+          success: function (res) {
+            //console.log(that.data.TheText)
+            that.setData({
+              TheText: res.data.text,
+              TheEmotion: res.data.emotion
+
+            })
+            //console.log(that.data.TheText)
+          }
+        })
         wx.showToast({
           title: '上传成功',
           icon: 'succes',
