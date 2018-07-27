@@ -3,6 +3,7 @@
   <view class="btn-container">
     <button bindtap="read" class='btn'>朗读</button>
     <button bindtap="check" class='btn'>检查</button>
+    <button bindtap="change" class='btn'>转换</button>
     <view class="container">
     </view>
   </view>

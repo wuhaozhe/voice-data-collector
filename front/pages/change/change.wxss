@@ -1,0 +1,33 @@
+/* pages/change/change.wxss */
+/**index.wxss**/
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bt-bt-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+.emotion-container{
+  margin-top: 20px;
+}
+.text-container{
+  margin-top: 60px;
+}
+.usermotto {
+  margin-top: 20px;
+}

@@ -20,6 +20,11 @@ Page({
       url: '../check/check'
     })
   },
+  change: function () {
+    wx.navigateTo({
+      url: '../change/change'
+    })
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
