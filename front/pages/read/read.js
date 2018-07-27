@@ -6,8 +6,8 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '',
-    TheEmotion: '',
+    TheText: '今天星期几呀',
+    TheEmotion: '开心',
     src: ''
   },
   //事件处理函数

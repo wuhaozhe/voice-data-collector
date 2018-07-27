@@ -1,4 +1,24 @@
-/**index.wxss**/
+/**read.wxss**/
+
+page { 
+  background: #eee;
+}
+
+.title-text {
+  font-size: 45rpx;
+}
+
+.subtitle-text {
+  margin-top: 25rpx;
+  font-size: 40rpx;
+}
+
+.title-pack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;

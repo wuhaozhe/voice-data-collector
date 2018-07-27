@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="idx-container">
+<view class="main-container">
 
   <view class="title-container">
     <view class="title-inner-container">

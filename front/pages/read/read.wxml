@@ -1,12 +1,25 @@
-<!--index.wxml-->
-<view class="container">
-  <text class="guide">{{'请用以下感情阅读下方文本'}}</text>
-  <view class="emotion-container">
-    <text class="emotion">{{'感情： '+TheEmotion}}</text>
+<!--read.wxml-->
+<view class="main-container">
+  <view class="title-container">
+    <view class="title-inner-container">
+      <view class="title-pack">
+        <view class="title-text">
+          {{'请用'}}
+        </view>
+        <view class="title-text" style="color: #FF69B4">
+          {{TheEmotion}}
+        </view>
+        <view class="title-text">
+          {{'的感情阅读下方文本:'}}
+        </view>
+      </view>
+      
+      <view class="subtitle-text">
+        {{TheText}}
+      </view>
+    </view>
   </view>
-  <view class="text-container">
-    <text class="text">{{TheText}}</text>
-  </view>
+
   <view class="btn-container">
     <button bindtap="start" class='btn'>开始录音</button>
     <button bindtap="stop" class='btn'>停止录音</button>
