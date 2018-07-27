@@ -1,9 +1,20 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="btn-container">
-    <button bindtap="read" class='btn'>朗读</button>
-    <button bindtap="check" class='btn'>检查</button>
-    <view class="container">
+<view class="idx-container">
+
+  <view class="title-container">
+    <view class="title-inner-container">
+      <text class="title-text">语音实验室</text>
+      <text class="subtitle-text">提供各种各样有趣的语音实验</text>
     </view>
   </view>
+
+  <view class="btn-container">
+    <view bindtap="read" class='btn'>朗读</view>
+    <view bindtap="check" class='btn'>检查</view>
+  </view>
+
+  <view class="copyright-container">
+    <text>@版权由吴昊哲大佬所有</text>
+  </view>
 </view>
+
