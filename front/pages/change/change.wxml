@@ -11,7 +11,7 @@
 
     <view class="bt-bt-container">
     <view bindtap="{{current_tag == 1?'stop':'start'}}" class="{{current_tag == 1?'iconfont icon-timeout':'iconfont icon-sound'}}"></view>
-    <text class="text">{{current_tag == 1?'停止录音':'开始录音'}}</text>
+    <text class="text">{{current_tag == 1?'停止录音':(current_tag == null?'开始录音':'重新录音')}}</text>
     </view>
 
     <view class="bt-bt-container">
