@@ -9,9 +9,30 @@
   </view>
 
   <view class="btn-container">
-    <view bindtap="read" class='btn'>朗读</view>
-    <view bindtap="check" class='btn'>检查</view>
-    <view bindtap="change" class='btn'>转换</view>
+    <view bindtap="read" class='btn'>
+      <view class="iconfont icon-read icon"></view>
+      <view class="btn-text-container">朗读</view>
+      <view class="right-container">
+        <view class="iconfont icon-right icon right"></view>
+        <view class="exp-text-container">语音数据收集</view>
+      </view>
+    </view>
+    <view bindtap="check" class='btn'>
+      <view class="iconfont icon-check icon"></view>
+      <view class="btn-text-container">检查</view>
+      <view class="right-container">
+        <view class="iconfont icon-right icon right"></view>
+        <view class="exp-text-container">语音数据检查</view>
+      </view>
+    </view>
+    <view bindtap="change" class='btn'>
+      <view class="iconfont icon-transform icon"></view>
+      <view class="btn-text-container">转换</view>
+      <view class="right-container">
+        <view class="iconfont icon-right icon right"></view>
+        <view class="exp-text-container">跨语言情感迁移</view>
+      </view>
+    </view>
   </view>
 
   <view class="copyright-container">

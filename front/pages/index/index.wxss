@@ -19,7 +19,7 @@ page {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding-left: 50px;
 }
 
 .title-inner-container {
@@ -48,11 +48,14 @@ page {
 .btn {
   padding-top: 35rpx;
   padding-bottom: 35rpx;
-  padding-left: 35rpx;
+  padding-left: 50rpx;
   width: 100%;
   background-color: white;
   border-top: none;
   border-bottom: 1rpx solid rgb(219, 219, 219);
+  display: flex;
+  flex-direction: raw;
+  align-items: center;
 }
 
 .copyright-container {
@@ -60,4 +63,32 @@ page {
   bottom: 30rpx;
   font-size: 30rpx;
   color: gray;
+}
+
+.icon {
+  font-size: 55rpx;
+  color: rgb(81, 190, 241);
+  margin-right: 35rpx;
+}
+
+.right-container {
+  width: 100%;
+  margin-right: 20rpx;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.right {
+  right: 20rpx;
+}
+
+.btn-text-container {
+  width: 400rpx;
+}
+
+.exp-text-container {
+  font-size: 25rpx;
+  color: gray;
+  margin-right: 10rpx;
 }
