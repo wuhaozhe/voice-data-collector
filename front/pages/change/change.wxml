@@ -1,45 +1,47 @@
-<!--read.wxml-->
 <view class="main-container">
   <view class="title-container">
     <view class="title-inner-container">
-      <view class="title-pack">
-        <view class="title-text">
-          {{'请用'}}
-        </view>
-        <view class="title-text" style="color: #FF69B4">
-          {{TheEmotion}}
-        </view>
-        <view class="title-text">
-          {{'的感情阅读下方文本:'}}
-        </view>
-      </view>
-      
+      <text class="title-text">语音转换</text>
+      <text class="subtitle-text">您的语音将被转换为同种感情的英文</text>
     </view>
   </view>
+  
   <view class="btn-container">
-
-    <view class="bt-bt-container">
-    <view bindtap="{{current_tag == 1?'stop':'start'}}" class="{{current_tag == 1?'iconfont icon-timeout':'iconfont icon-sound'}}"></view>
-    <text class="text">{{current_tag == 1?'停止录音':(current_tag == null?'开始录音':'重新录音')}}</text>
+    <view class="{{change_finish == 1?'view_hide':'bt-bt-container'}}">
+      <view bindtap="{{current_tag == 2?'play':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
+      <view class="bt-bt-container">
+        <text class="text">{{current_tag == 2?'播放录音':(current_tag == 1?'停止录音':'开始录音')}}</text>
+      </view>
     </view>
 
-    <view class="bt-bt-container">
-      <view bindtap="{{play_tag == 1?'pause':(current_tag == 1?null:'play')}}" class="{{play_tag == 1?'iconfont icon-timeout':(current_tag == 1?'iconfont icon-read':'iconfont icon-playcircle')}}"></view>
-      <text class="text">{{play_tag == 1?'停止播放':(current_tag == 1?'等待完成':'播放录音')}}</text>
+    <view class="{{change_finish == 1?'btn-container':'view_hide'}}">
+      <view class="bt-bt-container">
+        <view bindtap="play" class="iconfont icon-playcircle playcircle-btn"></view>
+        <view class="bt-bt-container">
+          <text class="text">转换前录音</text>
+        </view>
+      </view>
+      <view class="bt-bt-container">
+        <view bindtap="playafter" class="iconfont icon-playcircle playcircle-btn"></view>
+        <view class="bt-bt-container">
+          <text class="text">转换后录音</text>
+        </view>
+      </view>
     </view>
+
+      <!--view class="bt-bt-container">
+        <view bindtap="{{play_tag == 1?'pause':(current_tag == 1?null:'play')}}" class="{{play_tag == 1?'iconfont icon-timeout timeout-btn':(current_tag == 1?'iconfont icon-playcircle wait-btn':'iconfont icon-playcircle playcircle-btn')}}"></view>
+         <view class="bt-bt-container">
+        <text class="text">{{play_tag == 1?'停止播放':(current_tag == 1?'等待完成':'播放录音')}}</text>
+        </view>
+      </view-->
    
     <!--view bindtap="uplo" class='iconfont icon-upload'></view-->
     <!--button bindtap="stop" class='btn'>停止录音</button-->
     <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
-  </view>
-   <button bindtap="uplo" class = "btn" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">开始转换</button>
-  <view class="{{change_start == 1?'bt-bt-container':'not_show'}}">
-    <view class="change-container">
-      <text class="text">{{change_finish == 1?'转换已完成！':'正在转换中，请稍等 ... '}}</text>
     </view>
-    <view class="{{change_finish == 1?'btn-container':'not_show'}}">
-      <text class="text">播放转换后录音：</text>
-      <view bindtap="playafter" class="iconfont icon-playcircle"></view>
+    <view class="submit-button-container">
+    <button bindtap="goback" class = "btn btn-goback" disabled="{{change_finish == 1?submitDisable:(current_tag == null?'true':(current_tag == 1?'true':submitDisable))}}">{{change_finish == 1?'再试一次':'取消'}}</button>
+    <button bindtap="uplo" class = "{{change_finish == 1?'view_hide':'btn btn-uplo'}}" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">转换</button>
     </view>
   </view>
-</view>

@@ -1,5 +1,4 @@
 /**read.wxss**/
-
 page { 
   background: #eee;
 }
@@ -19,53 +18,73 @@ page {
   align-items: center;
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
 .emotion-container{
   margin-top: 20px;
 }
 .text-container{
   margin-top: 60px;
 }
-.change-container{
-  margin-top: 30px;
-}
 .btn-container{
-  margin-top: 40px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.bt-bt-container{
+  margin: 20px;
+}
+.text-container{
+  align-items: center;
+}
+.submit-button-container {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.bt-bt-container{
-  margin-top: 40px;
-  margin: 20px;
+.sound-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(81, 190, 241);
+}
+.btn-uplo {
+  background-color: rgb(60, 179, 113);
+}
+.btn-goback {
+  background-color: rgb(81, 190, 241);
+}
+.timeout-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(255, 99, 71);
+}
+.playcircle-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(60, 179, 113);
+}
+.wait-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: gray;
+}
+.btn {
+  padding-top: 35rpx;
+  padding-bottom: 35rpx;
+  width: 100%;
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+  font-size: 40rpx;
+  font-family: fantasy;
+  font-weight: bold;
 }
-
-.not_show{
-  display: none;
-}
-
-.btn{
-  margin-top: 20px;
-}
-
 .usermotto {
   margin-top: 20px;
+}
+.view_hide{
+ display: none;
 }
