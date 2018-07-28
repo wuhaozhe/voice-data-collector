@@ -35,9 +35,14 @@
     <!--button bindtap="stop" class='btn'>停止录音</button-->
     <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
   </view>
-   <button bindtap="uplo" class = "btn" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">上传录音</button>
-  <view class="btn-container">
-    <text class="text">转换完成： </text>
-    <view bindtap="playafter" class='iconfont icon-playcircle'></view>
+   <button bindtap="uplo" class = "btn" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">开始转换</button>
+  <view class="{{change_start == 1?'bt-bt-container':'not_show'}}">
+    <view class="change-container">
+      <text class="text">{{change_finish == 1?'转换已完成！':'正在转换中，请稍等 ... '}}</text>
+    </view>
+    <view class="{{change_finish == 1?'btn-container':'not_show'}}">
+      <text class="text">播放转换后录音：</text>
+      <view bindtap="playafter" class="iconfont icon-playcircle"></view>
+    </view>
   </view>
 </view>

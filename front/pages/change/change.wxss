@@ -41,18 +41,31 @@ page {
 .text-container{
   margin-top: 60px;
 }
+.change-container{
+  margin-top: 30px;
+}
 .btn-container{
   margin-top: 40px;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .bt-bt-container{
+  margin-top: 40px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not_show{
+  display: none;
 }
 
 .btn{
   margin-top: 20px;
 }
+
 .usermotto {
   margin-top: 20px;
 }

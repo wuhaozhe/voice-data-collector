@@ -18,3 +18,25 @@ page {
   flex-direction: row;
   align-items: center;
 }
+
+.emotion-container{
+  margin-top: 20px;
+}
+.text-container{
+  margin-top: 60px;
+}
+.btn-container{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+}
+.bt-bt-container{
+  margin: 20px;
+}
+
+.btn{
+  margin-top: 20px;
+}
+.usermotto {
+  margin-top: 20px;
+}

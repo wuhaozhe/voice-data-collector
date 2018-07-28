@@ -10,6 +10,8 @@ Page({
     TheEmotion: '愤怒',
     current_tag: null,
     play_tag: null,
+    change_start: null,
+    change_finish: null,
     submitDisable: false,
     src: ''
   },
@@ -19,6 +21,8 @@ Page({
     console.log('start da')
     this.setData({
       current_tag: 1,
+      change_start: 0,
+      change_finish: 0,
     })
     this.recorderManager.start({
       sampleRate: 16000
@@ -79,6 +83,9 @@ Page({
   },
   uplo: function () {
     var that = this;
+    this.setData({
+      change_start: 1,
+    })
     wx.uploadFile({
       url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
       filePath: that.data.src,
@@ -91,21 +98,9 @@ Page({
         const url = JSON.parse(res.data);//将这个url提交保存
         console.log('yes')
         console.log(that.data.src)
-        wx.request({
-          url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
-          method: 'GET',
-          success: function (res) {
-            //console.log(that.data.TheText)
-            that.setData({
-              TheText: res.data.text,
-              TheEmotion: res.data.emotion
-
-            })
-            //console.log(that.data.TheText)
-          }
-        })
+        
         wx.showToast({
-          title: '上传成功',
+          title: '转换完成',
           icon: 'succes',
           duration: 1000,
           mask: true
