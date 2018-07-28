@@ -33,9 +33,44 @@ page {
 .bt-bt-container{
   margin: 20px;
 }
-
-.btn{
-  margin-top: 20px;
+.text-container{
+  align-items: center;
+}
+.sound-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(81, 190, 241);
+}
+.btn-uplo {
+  background-color: rgb(81, 190, 241);
+}
+.timeout-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(255, 99, 71);
+}
+.playcircle-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: rgb(60, 179, 113);
+}
+.wait-btn {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: gray;
+}
+.btn {
+  padding-top: 35rpx;
+  padding-bottom: 35rpx;
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 40rpx;
+  font-family: fantasy;
+  font-weight: bold;
 }
 .usermotto {
   margin-top: 20px;
