@@ -33,9 +33,6 @@ Page({
     this.setData({
       current_tag: null,
     })
-    this.recorderManager.start({
-      sampleRate: 16000
-    });
   },
   //停止录音
   stop: function () {
@@ -140,6 +137,7 @@ Page({
     });
     this.recorderManager.onStop(function (res) {
       // 停止录音之后，把录取到的音频放在res.tempFilePath
+      console.log('stop dfffa')
       that.setData({
         src: res.tempFilePath
       })
