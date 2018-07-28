@@ -32,7 +32,7 @@ Page({
   stop: function () {
     console.log('stop da')
     this.setData({
-      current_tag: 0,
+      current_tag: 2,
     })
     this.recorderManager.stop()
   },
