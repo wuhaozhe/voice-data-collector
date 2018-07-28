@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 766417 */
-  src: url('//at.alicdn.com/t/font_766417_qxf6vi2d7jl.eot');
-  src: url('//at.alicdn.com/t/font_766417_qxf6vi2d7jl.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_766417_qxf6vi2d7jl.woff') format('woff'),
-  url('//at.alicdn.com/t/font_766417_qxf6vi2d7jl.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_766417_qxf6vi2d7jl.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_766417_ub8l2dlm56g.eot');
+  src: url('//at.alicdn.com/t/font_766417_ub8l2dlm56g.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_766417_ub8l2dlm56g.woff') format('woff'),
+  url('//at.alicdn.com/t/font_766417_ub8l2dlm56g.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_766417_ub8l2dlm56g.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -30,3 +30,4 @@
 .icon-read:before {content: "\e742"}
 .icon-sound:before {content: "\e6ef"}
 .icon-wait:before {content: "\e631"}
+.icon-stop:before {content: "\e8e0"}

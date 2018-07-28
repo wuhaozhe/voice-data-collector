@@ -6,10 +6,9 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '今天星期几呀',
-    TheEmotion: '开心',
+    TheText: '',
+    TheEmotion: '',
     current_tag: null,
-    play_tag: null,
     uplo_start: null,
     uplo_finish: null,
     submitDisable: false,
@@ -28,11 +27,21 @@ Page({
       sampleRate: 16000
     });
   },
+  goback: function () {
+    //开始录音
+    console.log('goback da')
+    this.setData({
+      current_tag: null,
+    })
+    this.recorderManager.start({
+      sampleRate: 16000
+    });
+  },
   //停止录音
   stop: function () {
     console.log('stop da')
     this.setData({
-      current_tag: 0,
+      current_tag: 2,
     })
     this.recorderManager.stop()
   },
@@ -44,32 +53,15 @@ Page({
       // 播放音频失败的回调
     })
     this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
-    this.setData({
-      play_tag: 1,
-    })
     this.innerAudioContext.play()
     console.log(this.innerAudioContext.src)
 
   },
-  pause: function () {
-    console.log('pause da')
+  playover: function () {
+    console.log('playover da')
     this.setData({
-      play_tag: 0,
+      current_tag: 1,
     })
-    this.innerAudioContext.pause();
-
-    console.log(this.innerAudioContext.src)
-
-  },
-  playafter: function () {
-    this.innerAudioContext = wx.createInnerAudioContext();
-    this.innerAudioContext.onError((res) => {
-      // 播放音频失败的回调
-    })
-    this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
-    this.innerAudioContext.play()
-    console.log(this.innerAudioContext.src)
-
   },
   nex: function () {
     wx.navigateTo({
@@ -98,6 +90,12 @@ Page({
         const url = JSON.parse(res.data);//将这个url提交保存
         console.log('yes')
         console.log(that.data.src)
+        wx.showToast({
+          title: '上传成功',
+          icon: 'succes',
+          duration: 1000,
+          mask: true
+        })
         wx.request({
           url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
           method: 'GET',
@@ -111,11 +109,8 @@ Page({
             //console.log(that.data.TheText)
           }
         })
-        wx.showToast({
-          title: '上传成功',
-          icon: 'succes',
-          duration: 1000,
-          mask: true
+        this.setData({
+          current_tag: null,
         })
       },
       fail: res => {
