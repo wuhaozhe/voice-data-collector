@@ -4,8 +4,8 @@ const app = getApp()
 
 Page({
   data: {
-    TheText: '',
-    TheEmotion: '',
+    TheText: '今天星期几呀',
+    TheEmotion: '开心',
     FileName: '',
     Sound: '',
     userInfo: {},
@@ -16,7 +16,8 @@ Page({
       { name: 'n', value: '不一致'}
     ],
     chosen: 'y',
-    submitDisable: false
+    submitDisable: false,
+    playDisable: true,
   },
 
   onShow: function(options) {
@@ -40,8 +41,7 @@ Page({
     this.getData()
   },
 
-  submit: function() {
-    this.setData({submitDisable: true})
+  submit_y: function() {
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
       method: 'POST',
@@ -52,10 +52,31 @@ Page({
         text: this.data.TheText,
         emotion: this.data.TheEmotion,
         filename: this.data.FileName,
-        result: this.data.chosen
+        result: 'y'
       },
       success: function (res) {
-        console.log("ojbk")
+        console.log("submit data OK");
+        this.getData();
+      }
+    })
+  },
+
+  submit_n: function () {
+    wx.request({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        text: this.data.TheText,
+        emotion: this.data.TheEmotion,
+        filename: this.data.FileName,
+        result: 'n'
+      },
+      success: function (res) {
+        console.log("submit data OK");
+        this.getData();
       }
     })
   },
@@ -103,6 +124,7 @@ Page({
       url: '../logs/logs'
     })
   },
+
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
@@ -131,6 +153,7 @@ Page({
       })
     }
   },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -139,6 +162,7 @@ Page({
       hasUserInfo: true
     })
   },
+  
   getData: function() {
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_audio',
