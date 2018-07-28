@@ -8,21 +8,56 @@ Page({
   data: {
     TheText: '今天星期几呀',
     TheEmotion: '开心',
+    current_tag: null,
+    play_tag: null,
+    submitDisable: false,
     src: ''
   },
   //事件处理函数
   start: function () {
     //开始录音
+    console.log('start da')
+    this.setData({
+      current_tag: 1,
+    })
     this.recorderManager.start({
       sampleRate: 16000
     });
   },
   //停止录音
   stop: function () {
+    console.log('stop da')
+    this.setData({
+      current_tag: 0,
+    })
     this.recorderManager.stop()
   },
   //播放声音
   play: function () {
+    console.log('play da')
+    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext.onError((res) => {
+      // 播放音频失败的回调
+    })
+    this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
+    this.setData({
+      play_tag: 1,
+    })
+    this.innerAudioContext.play()
+    console.log(this.innerAudioContext.src)
+
+  },
+  pause: function () {
+    console.log('pause da')
+    this.setData({
+      play_tag: 0,
+    })
+    this.innerAudioContext.pause();
+
+    console.log(this.innerAudioContext.src)
+
+  },
+  playafter: function () {
     this.innerAudioContext = wx.createInnerAudioContext();
     this.innerAudioContext.onError((res) => {
       // 播放音频失败的回调
@@ -34,7 +69,7 @@ Page({
   },
   nex: function () {
     wx.navigateTo({
-      url: '../read/read'
+      url: '../change/change'
     })
   },
   bac: function () {

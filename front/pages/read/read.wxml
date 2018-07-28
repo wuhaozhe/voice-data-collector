@@ -19,13 +19,22 @@
       </view>
     </view>
   </view>
-
+  
   <view class="btn-container">
-    <button bindtap="start" class='btn'>开始录音</button>
-    <button bindtap="stop" class='btn'>停止录音</button>
-    <button bindtap="play" class='btn'>播放录音</button>
-    <button bindtap="uplo" class='btn'>确定上传</button>
-    <button bindtap="nex" class='btn'>下一段话</button>
-    <button bindtap="bac" class='btn'>返回主页</button>
+
+    <view class="bt-bt-container">
+    <view bindtap="{{current_tag == 1?'stop':'start'}}" class="{{current_tag == 1?'iconfont icon-timeout':'iconfont icon-sound'}}"></view>
+    <text class="text">{{current_tag == 1?'停止录音':(current_tag == null?'开始录音':'重新录音')}}</text>
+    </view>
+
+    <view class="bt-bt-container">
+      <view bindtap="{{play_tag == 1?'pause':(current_tag == 1?null:'play')}}" class="{{play_tag == 1?'iconfont icon-timeout':(current_tag == 1?'iconfont icon-read':'iconfont icon-playcircle')}}"></view>
+      <text class="text">{{play_tag == 1?'停止播放':(current_tag == 1?'等待完成':'播放录音')}}</text>
+    </view>
+   
+    <!--view bindtap="uplo" class='iconfont icon-upload'></view-->
+    <!--button bindtap="stop" class='btn'>停止录音</button-->
+    <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
   </view>
+   <button bindtap="uplo" class = "btn" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">上传录音</button>
 </view>
