@@ -6,8 +6,8 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
-    TheText: '哈哈哈',
-    TheEmotion: '愤怒',
+    TheText: '',
+    TheEmotion: '',
     current_tag: null,
     play_tag: null,
     change_start: null,
@@ -34,7 +34,7 @@ Page({
   stop: function () {
     console.log('stop da')
     this.setData({
-      current_tag: 0,
+      current_tag: 2,
     })
     this.recorderManager.stop()
   },
@@ -53,16 +53,6 @@ Page({
     console.log(this.innerAudioContext.src)
 
   },
-  pause: function () {
-    console.log('pause da')
-    this.setData({
-      play_tag: 0,
-    })
-    this.innerAudioContext.pause();
-    
-    console.log(this.innerAudioContext.src)
-
-  },
   playafter: function () {
     this.innerAudioContext = wx.createInnerAudioContext();
     this.innerAudioContext.onError((res) => {
@@ -73,9 +63,12 @@ Page({
     console.log(this.innerAudioContext.src)
 
   },
-  nex: function () {
-    wx.navigateTo({
-      url: '../change/change'
+  goback: function () {
+    //开始录音
+    console.log('goback da')
+    this.setData({
+      current_tag: null,
+      change_finish: 0
     })
   },
   bac: function () {
@@ -84,12 +77,20 @@ Page({
     })
   },
 
+  change: function () {
+    this.setData({
+      change_finish: 1,
+      current_tag: null,
+    })
+  },
+
   uplo: function () {
     console.log("datasrc")
     console.log(this.data.src)
     const that = this;
     this.setData({
-      change_start: 1,
+      change_finish: 1,
+      
     })
     wx.uploadFile({
       url: 'https://hcsi.cs.tsinghua.edu.cn/convert_emotion',//开发者文件上传地址
