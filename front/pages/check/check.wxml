@@ -22,7 +22,8 @@
     </view>
   </view>
   
-  <view  bindtap="play" class="iconfont icon-playcircle btn-play"></view> 
+  <view wx:if="{{playDisable==false}}"  bindtap="play" class="iconfont icon-playcircle btn-play"></view> 
+  <view wx:else class="iconfont icon-playcircle btn-play-disable"></view> 
 
   <view wx:if="{{submitStat=='submit'}}" class="submit-button-container">
     <view bindtap="submit_y" class="btn btn-y">一致</view>

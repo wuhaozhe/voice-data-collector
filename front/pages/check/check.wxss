@@ -55,3 +55,9 @@ page {
   font-size: 350rpx;
   color: rgb(81, 190, 241);
 }
+
+.btn-play-disable {
+  margin-top: 100rpx;
+  font-size: 350rpx;
+  color: gray;
+}

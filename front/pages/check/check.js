@@ -19,14 +19,15 @@ Page({
     ],
     chosen: 'y',
     submitStat: 'init',
-    playDisable: true,
+    playDisable: false,
   },
 
   onShow: function(options) {
+    console.log("onShow")
     const that = this;
     setTimeout(function() {
       that.getData()
-    }, 500)
+    }, 1000)
     
   },
 
@@ -49,7 +50,9 @@ Page({
       },
       success: function (res) {
         console.log("submit data OK");
-        that.getData();
+        setTimeout(function () {
+          that.getData()
+        }, 1000)
       }
     })
   },
@@ -73,7 +76,9 @@ Page({
       },
       success: function (res) {
         console.log("submit data OK");
-        that.getData();
+        setTimeout(function () {
+          that.getData()
+        }, 1000)
       }
     })
   },
@@ -81,14 +86,23 @@ Page({
   //播放声音
   play: function () {
     const audio = wx.createInnerAudioContext()
-
+    const that = this;
     audio.onPlay(() => {
       console.log('开始播放')
+      this.setData({
+        playDisable: true
+      })
     })
     audio.onError((res) => {
       console.log("errrrrrrrrrrrrrror")
       console.log(res.errMsg)
       console.log(res.errCode)
+    })
+    audio.onEnded(() => {
+      console.log("end")
+      this.setData({
+        playDisable: false
+      })
     })
 
     var sysInfo = wx.getSystemInfoSync()
@@ -170,7 +184,8 @@ Page({
                       EmotionAfter: '的情感',
                       TheText: res.data.text,
                       FileName: res.data.filename,
-                      submitStat: 'submit'})
+                      submitStat: 'submit',
+                      playDisable: false})
         console.log(this.data.FileName)
       }
     })
