@@ -19,12 +19,13 @@ Page({
     ],
     chosen: 'y',
     submitStat: 'init',
-    playDisable: false,
+    playDisable: true,
     audio: null,
   },
 
   onShow: function(options) {
     console.log("onShow")
+    
     const that = this;
     setTimeout(function() {
       that.getData()
@@ -195,7 +196,7 @@ Page({
       success: (res) => {
         this.setData({EmotionBefore: '听听这句话是否符合',
                       TheEmotion: res.data.emotion,
-                      EmotionAfter: '的情感',
+                      EmotionAfter: '的情感:',
                       TheText: res.data.text,
                       FileName: res.data.filename,
                       submitStat: 'submit',

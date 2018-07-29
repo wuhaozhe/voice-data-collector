@@ -6,13 +6,17 @@ const innerAudioContext = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
+    emotionBefore: '',
     TheText: '',
+    emotionAfter: '',
     TheEmotion: '',
     current_tag: null,
     uplo_start: null,
     uplo_finish: null,
     submitDisable: false,
-    src: ''
+    src: '',
+    submitStat: 'init',
+    recordDisable: true,
   },
   //事件处理函数
   start: function () {
@@ -117,39 +121,27 @@ Page({
       },
     });
   },
-  onLoad: function () {
+  onShow: function () {
     var that = this;
     
-    wx.request({
-      url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
-      method: 'GET',
-      success: function (res) {
-        //console.log(that.data.TheText)
-        that.setData({
-          TheText: res.data.text,
-          TheEmotion: res.data.emotion
-
-        })
-        //console.log(that.data.TheText)
-      }
-    })
-    wx.getSetting({
-      success: (response) => {
-        console.log(response)
-        if (!response.authSetting['scope.record']) {
-          wx.openSetting({
-            success: (res) => {
-              /*
-               * res.authSetting = {
-               *   "scope.userInfo": true,
-               *   "scope.userLocation": true
-               * }
-               */
-            }
+    setTimeout(()=>{
+      wx.request({
+        url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
+        method: 'GET',
+        success: function (res) {
+          //console.log(that.data.TheText)
+          that.setData({
+            emotionBefore: '请用',
+            TheText: res.data.text,
+            emotionAfter: '的感情阅读下方文本:',
+            TheEmotion: res.data.emotion,
+            recordDisable: false,
+            submitStat: 'submit',
           })
         }
-      }
-    })
+      })
+    }, 1000)
+    
     this.recorderManager = wx.getRecorderManager();
     console.log(this.recorderManager)
     this.recorderManager.onError(function () {
