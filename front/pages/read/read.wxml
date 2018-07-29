@@ -20,21 +20,20 @@
     </view>
   </view>
   
-  <view wx:if="{{recordDisable}}" class="iconfont icon-sound sound-btn-disable">
+  <view wx:if="{{submitStat=='init'||submitStat=='wait'}}" class="iconfont icon-sound sound-btn-disable">
   </view>
-  <view wx:else bindtap="{{current_tag == 2?'play':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}">
+  <view wx:else bindtap="{{submitStat == 'submit'?'play':(submitStat == 'recording'?'stop':'start')}}" class="{{submitStat == 'submit'?'iconfont icon-playcircle playcircle-btn':(submitStat == 'recording'?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}">
   </view>
-  <view class="hint-text">{{current_tag == 2?'播放录音':(current_tag == 1?'停止录音':'开始录音')}}
+  <view class="hint-text">{{submitStat == 'submit'?'播放录音':(submitStat == 'recording'?'停止录音':'开始录音')}}
   </view>
 
 
   <view wx:if="{{submitStat=='submit'}}" class="submit-button-container">
-    <view bindtap="uplo" class = "btn btn-uplo" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">
-    上传
-    </view>
-    <view bindtap="goback" class = "btn btn-goback" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">
-    取消
-    </view>
+    <view bindtap="uplo" class = "btn btn-uplo">上传</view>
+    <view bindtap="goback" class = "btn btn-goback">取消</view>
+  </view>
+  <view wx:elif="{{submitStat=='record'||submitStat=='recording'}}" class="submit-button-container">
+    <view class="btn btn-y">请录音...</view>
   </view>
   <view wx:elif="{{submitStat=='wait'}}" class="submit-button-container">
     <view class="btn btn-y">正在提交...</view>
