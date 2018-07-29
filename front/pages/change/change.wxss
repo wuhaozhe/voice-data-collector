@@ -88,3 +88,9 @@ page {
 .view_hide{
  display: none;
 }
+
+.btn-play-disable {
+  margin-top: 20rpx;
+  font-size: 250rpx;
+  color: gray;
+}
