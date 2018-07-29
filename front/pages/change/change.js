@@ -3,6 +3,8 @@
 const app = getApp()
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
+const audio = wx.createInnerAudioContext()
+const normalaudio = wx.createInnerAudioContext()
 var tempFilePath;
 Page({
   data: {
@@ -40,20 +42,17 @@ Page({
   },
   //播放声音
   play: function () {
-    console.log('play da')
-    this.innerAudioContext = wx.createInnerAudioContext();
-    this.innerAudioContext.onError((res) => {
-      // 播放音频失败的回调
-    })
-    this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
-    this.setData({
-      play_tag: 1,
-    })
-    this.innerAudioContext.play()
-    console.log(this.innerAudioContext.src)
+    this.normalaudio.play()
+    console.log(this.normalaudio.src)
 
   },
   playafter: function () {
+    this.audio.play()
+    console.log(this.audio.src)
+
+  },
+  playbefore: function () {
+    console.log('play da')
     this.innerAudioContext = wx.createInnerAudioContext();
     this.innerAudioContext.onError((res) => {
       // 播放音频失败的回调
@@ -68,7 +67,8 @@ Page({
     console.log('goback da')
     this.setData({
       current_tag: null,
-      change_finish: 0
+      change_finish: 0,
+      change_start: 0,
     })
   },
   bac: function () {
@@ -89,8 +89,10 @@ Page({
     console.log(this.data.src)
     const that = this;
     this.setData({
-      change_finish: 1,
-      
+      change_start: 1,
+    })
+    wx.showLoading({
+      title: '转换中',
     })
     wx.uploadFile({
       url: 'https://hcsi.cs.tsinghua.edu.cn/convert_emotion',//开发者文件上传地址
@@ -110,14 +112,14 @@ Page({
         })
         console.log(that.data.emotionFileName)
 
-        const audio = wx.createInnerAudioContext()
-        audio.onPlay(() => {
+        this.audio = wx.createInnerAudioContext()
+        this.audio.onPlay(() => {
           console.log('开始播放')
           this.setData({
             playDisable: true
           })
         })
-        audio.onError((res) => {
+        this.audio.onError((res) => {
           console.log("errrrrrrrrrrrrrror")
           console.log(res.errMsg)
           console.log(res.errCode)
@@ -125,7 +127,7 @@ Page({
             playDisable: false
           })
         })
-        audio.onEnded(() => {
+        this.audio.onEnded(() => {
           console.log("end")
           this.setData({
             playDisable: false
@@ -145,16 +147,16 @@ Page({
             console.log(res)
             var path = res.tempFilePath
             console.log(path)
-            audio.src = path
-            audio.play()
+            that.audio.src = path
+            //this.audio.play()
 
           },
           fail: function ({ errMsg }) {
             console.log('downloadFile fail, err is:', errMsg)
           },
         })
-        audio.title = "audio"
-        console.log(audio.src)
+        this.audio.title = "audio"
+        console.log(this.audio.src)
         console.log("hhh")
 
 
@@ -173,8 +175,65 @@ Page({
       },
       success: res => {
         console.log('normal success')
-        that.normalFileName = res["filename"]
-        console.log(that.normalFileName)
+        //that.normalFileName = res["filename"]
+        var tempp = JSON.parse(res.data)
+        that.setData({
+          normalFileName: tempp.filename
+        })
+        console.log(res)
+        console.log(that.data.emotionFileName)
+        this.normalaudio = wx.createInnerAudioContext()
+        this.normalaudio.onPlay(() => {
+          console.log('开始播放')
+          this.setData({
+            playDisable: true
+          })
+        })
+        this.normalaudio.onError((res) => {
+          console.log("errrrrrrrrrrrrrror")
+          console.log(res.errMsg)
+          console.log(res.errCode)
+          this.setData({
+            playDisable: false
+          })
+        })
+        this.normalaudio.onEnded(() => {
+          console.log("end")
+          this.setData({
+            playDisable: false
+          })
+        })
+
+        var sysInfo = wx.getSystemInfoSync()
+        if (sysInfo.platform == 'ios') {
+        }
+
+        var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + encodeURI(that.data.normalFileName)
+        console.log(src)
+
+        var downloadTask = wx.downloadFile({
+          url: src,
+          success: function (res) {
+            that.setData({
+              change_finish: 1,
+              current_tag: null,
+            })
+            console.log(res)
+            console.log("download_normal_succ")
+            var path = res.tempFilePath
+            console.log(path)
+            that.normalaudio.src = path
+            wx.hideLoading()
+            //this.audio.play()
+
+          },
+          fail: function ({ errMsg }) {
+            console.log('downloadFile fail, err is:', errMsg)
+          },
+        })
+        this.normalaudio.title = "audio"
+        console.log(this.normalaudio.src)
+        console.log("hhh")
       },
       fail: res => {
         console.log('normal fail')
