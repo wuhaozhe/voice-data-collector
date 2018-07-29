@@ -8,7 +8,7 @@
   
   <view class="btn-container">
     <view class="{{change_finish == 1?'view_hide':'bt-bt-container'}}">
-      <view wx:if="{{play1_tag == 1}}" bindtap="{{current_tag == 2?'playbefore':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
+      <view wx:if="{{(play1_tag == 1&&play4_tag == 1)}}" bindtap="{{current_tag == 2?'playbefore':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
       <view wx:else class="iconfont icon-playcircle btn-play-disable"></view>
       <view class="bt-bt-container">
         <text class="text">{{current_tag == 2?'播放录音':(current_tag == 1?'停止录音':'开始录音')}}</text>

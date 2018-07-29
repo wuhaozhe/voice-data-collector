@@ -15,6 +15,7 @@ Page({
     play1_tag: 1,
     play2_tag: 1,
     play3_tag: 1,
+    play4_tag: 1,
     change_start: null,
     change_finish: null,
     submitDisable: false,
@@ -86,6 +87,7 @@ Page({
       play1_tag: 1,
       play2_tag: 1,
       play3_tag: 1,
+      play4_tag: 1,
     })
   },
   bac: function () {
@@ -107,7 +109,7 @@ Page({
     const that = this;
     this.setData({
       change_start: 1,
-      play1_tag: 0
+      play4_tag: 0
     })
     wx.showLoading({
       title: '转换中',
@@ -180,6 +182,7 @@ Page({
               play1_tag: 1,
               play2_tag: 1,
               play3_tag: 1,
+              play4_tag: 1,
             })
             console.log('downloadFile fail, err is:', errMsg)
           },
@@ -198,6 +201,7 @@ Page({
           play1_tag: 1,
           play2_tag: 1,
           play3_tag: 1,
+          play4_tag: 1,
         })
         console.log('convert fail')
       },
@@ -275,6 +279,7 @@ Page({
               play1_tag: 1,
               play2_tag: 1,
               play3_tag: 1,
+              play4_tag: 1,
             })
             console.log('downloadFile fail, err is:', errMsg)
           },
@@ -291,6 +296,7 @@ Page({
           play1_tag: 1,
           play2_tag: 1,
           play3_tag: 1,
+          play4_tag: 1,
         })
         console.log('normal fail')
       },
@@ -303,6 +309,7 @@ Page({
       play1_tag: 1,
       play2_tag: 1,
       play3_tag: 1,
+      play4_tag: 1,
     })
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_emotion',
