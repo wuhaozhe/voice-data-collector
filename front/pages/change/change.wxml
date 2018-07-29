@@ -8,7 +8,8 @@
   
   <view class="btn-container">
     <view class="{{change_finish == 1?'view_hide':'bt-bt-container'}}">
-      <view bindtap="{{current_tag == 2?'playbefore':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
+      <view wx:if="{{play1_tag == 1}}" bindtap="{{current_tag == 2?'playbefore':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
+      <view wx:else class="iconfont icon-playcircle btn-play-disable"></view>
       <view class="bt-bt-container">
         <text class="text">{{current_tag == 2?'播放录音':(current_tag == 1?'停止录音':'开始录音')}}</text>
       </view>
@@ -16,13 +17,15 @@
 
     <view class="{{change_finish == 1?'btn-container':'view_hide'}}">
       <view class="bt-bt-container">
-        <view bindtap="play" class="iconfont icon-playcircle playcircle-btn"></view>
+        <view wx:if="{{(play2_tag == 1)&&(play3_tag == 1)}}" bindtap="play" class="iconfont icon-playcircle playcircle-btn"></view>
+        <view wx:else class="iconfont icon-playcircle btn-play-disable"></view>
         <view class="bt-bt-container">
           <text class="text">无情感转换</text>
         </view>
       </view>
       <view class="bt-bt-container">
-        <view bindtap="playafter" class="iconfont icon-playcircle playcircle-btn"></view>
+        <view wx:if="{{(play2_tag == 1)&&(play3_tag == 1)}}" bindtap="playafter" class="iconfont icon-playcircle playcircle-btn" disabled="{{play2_tag == 0?'true':(play3_tag == 1?submitDisable:'true')}}"></view>
+        <view wx:else class="iconfont icon-playcircle btn-play-disable"></view>
         <view class="bt-bt-container">
           <text class="text">有情感转换</text>
         </view>

@@ -12,6 +12,9 @@ Page({
     TheEmotion: '',
     current_tag: null,
     play_tag: null,
+    play1_tag: 1,
+    play2_tag: 1,
+    play3_tag: 1,
     change_start: null,
     change_finish: null,
     submitDisable: false,
@@ -41,21 +44,32 @@ Page({
     this.recorderManager.stop()
   },
   //播放声音
-  play: function () {
+  play: function () {  
     this.normalaudio.play()
     console.log(this.normalaudio.src)
-
   },
   playafter: function () {
     this.audio.play()
     console.log(this.audio.src)
-
   },
   playbefore: function () {
     console.log('play da')
     this.innerAudioContext = wx.createInnerAudioContext();
     this.innerAudioContext.onError((res) => {
+      this.setData({
+        play1_tag: 1,
+      })
       // 播放音频失败的回调
+    })
+    this.innerAudioContext.onPlay(() => {
+      this.setData({
+        play1_tag: 0,
+      })
+    })
+    this.innerAudioContext.onEnded(() => {
+      this.setData({
+        play1_tag: 1,
+      })
     })
     this.innerAudioContext.src = this.data.src;  // 这里可以是录音的临时路径
     this.innerAudioContext.play()
@@ -69,6 +83,9 @@ Page({
       current_tag: null,
       change_finish: 0,
       change_start: 0,
+      play1_tag: 1,
+      play2_tag: 1,
+      play3_tag: 1,
     })
   },
   bac: function () {
@@ -90,6 +107,7 @@ Page({
     const that = this;
     this.setData({
       change_start: 1,
+      play1_tag: 0
     })
     wx.showLoading({
       title: '转换中',
@@ -116,7 +134,8 @@ Page({
         this.audio.onPlay(() => {
           console.log('开始播放')
           this.setData({
-            playDisable: true
+            playDisable: true,
+            play2_tag: 0,
           })
         })
         this.audio.onError((res) => {
@@ -124,12 +143,14 @@ Page({
           console.log(res.errMsg)
           console.log(res.errCode)
           this.setData({
+            play2_tag: 1,
             playDisable: false
           })
         })
         this.audio.onEnded(() => {
           console.log("end")
           this.setData({
+            play2_tag: 1,
             playDisable: false
           })
         })
@@ -152,6 +173,14 @@ Page({
 
           },
           fail: function ({ errMsg }) {
+            this.setData({
+              current_tag: null,
+              change_finish: 0,
+              change_start: 0,
+              play1_tag: 1,
+              play2_tag: 1,
+              play3_tag: 1,
+            })
             console.log('downloadFile fail, err is:', errMsg)
           },
         })
@@ -162,6 +191,14 @@ Page({
 
       },
       fail: res => {
+        this.setData({
+          current_tag: null,
+          change_finish: 0,
+          change_start: 0,
+          play1_tag: 1,
+          play2_tag: 1,
+          play3_tag: 1,
+        })
         console.log('convert fail')
       },
     });
@@ -186,6 +223,7 @@ Page({
         this.normalaudio.onPlay(() => {
           console.log('开始播放')
           this.setData({
+            play3_tag: 0,
             playDisable: true
           })
         })
@@ -194,12 +232,14 @@ Page({
           console.log(res.errMsg)
           console.log(res.errCode)
           this.setData({
+            play3_tag: 1,
             playDisable: false
           })
         })
         this.normalaudio.onEnded(() => {
           console.log("end")
           this.setData({
+            play3_tag: 1,
             playDisable: false
           })
         })
@@ -228,6 +268,14 @@ Page({
 
           },
           fail: function ({ errMsg }) {
+            this.setData({
+              current_tag: null,
+              change_finish: 0,
+              change_start: 0,
+              play1_tag: 1,
+              play2_tag: 1,
+              play3_tag: 1,
+            })
             console.log('downloadFile fail, err is:', errMsg)
           },
         })
@@ -236,6 +284,14 @@ Page({
         console.log("hhh")
       },
       fail: res => {
+        this.setData({
+          current_tag: null,
+          change_finish: 0,
+          change_start: 0,
+          play1_tag: 1,
+          play2_tag: 1,
+          play3_tag: 1,
+        })
         console.log('normal fail')
       },
     });
@@ -243,6 +299,11 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    this.setData({
+      play1_tag: 1,
+      play2_tag: 1,
+      play3_tag: 1,
+    })
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_emotion',
       method: 'GET',
