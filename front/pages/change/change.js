@@ -82,16 +82,17 @@ Page({
     })
   },
   uplo: function () {
+    console.log("datasrc")
+    console.log(this.data.src)
     var that = this;
     this.setData({
       change_start: 1,
     })
     wx.uploadFile({
-      url: 'https://hcsi.cs.tsinghua.edu.cn/upload_audio',//开发者文件上传地址
+      url: 'https://hcsi.cs.tsinghua.edu.cn/convert_emotion',//开发者文件上传地址
       filePath: that.data.src,
       name: 'audio',
       formData: {
-        text: that.data.TheText,
         emotion: that.data.TheEmotion
       },
       success: res => {
@@ -111,16 +112,41 @@ Page({
         console.log(that.data.src)
       },
     });
+
+    wx.uploadFile({
+      url: 'https://hcsi.cs.tsinghua.edu.cn/normal_emotion',//开发者文件上传地址
+      filePath: that.data.src,
+      name: 'audio',
+      formData: {
+        emotion: that.data.TheEmotion
+      },
+      success: res => {
+        const url = JSON.parse(res.data);//将这个url提交保存
+        console.log('yes')
+        console.log(that.data.src)
+
+        wx.showToast({
+          title: '转换完成',
+          icon: 'succes',
+          duration: 1000,
+          mask: true
+        })
+      },
+      fail: res => {
+        console.log('no')
+        console.log(that.data.src)
+      },
+    });
+
   },
   onLoad: function () {
     var that = this;
     wx.request({
-      url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
+      url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_emotion',
       method: 'GET',
       success: function (res) {
         //console.log(that.data.TheText)
         that.setData({
-          TheText: res.data.text,
           TheEmotion: res.data.emotion
 
         })

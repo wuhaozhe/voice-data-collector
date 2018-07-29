@@ -14,9 +14,6 @@
         </view>
       </view>
       
-      <view class="subtitle-text">
-        {{TheText}}
-      </view>
     </view>
   </view>
   <view class="btn-container">

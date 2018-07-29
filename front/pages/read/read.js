@@ -34,6 +34,7 @@ Page({
     this.setData({
       current_tag: 0,
     })
+    console.log(this.recorderManager)
     this.recorderManager.stop()
   },
   //播放声音
@@ -126,6 +127,7 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/datagen',
       method: 'GET',
@@ -139,16 +141,38 @@ Page({
         //console.log(that.data.TheText)
       }
     })
+    wx.getSetting({
+      success: (response) => {
+        console.log(response)
+        if (!response.authSetting['scope.record']) {
+          wx.openSetting({
+            success: (res) => {
+              /*
+               * res.authSetting = {
+               *   "scope.userInfo": true,
+               *   "scope.userLocation": true
+               * }
+               */
+            }
+          })
+        }
+      }
+    })
     this.recorderManager = wx.getRecorderManager();
+    console.log(this.recorderManager)
     this.recorderManager.onError(function () {
       // 录音失败的回调处理
     });
     this.recorderManager.onStop(function (res) {
+      console.log("hahaha")
       // 停止录音之后，把录取到的音频放在res.tempFilePath
       that.setData({
         src: res.tempFilePath
       })
       console.log(res.tempFilePath)
+    });
+    this.recorderManager.onStart(function (res) {
+      console.log("cao")
     });
   }
 })

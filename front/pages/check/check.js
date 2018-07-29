@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   data: {
-    TheText: '今天星期几呀',
-    TheEmotion: '开心',
+    TheText: '',
+    EmotionBefore: '',
+    TheEmotion: '',
+    EmotionAfter: '',
     FileName: '',
     Sound: '',
     userInfo: {},
@@ -16,32 +18,23 @@ Page({
       { name: 'n', value: '不一致'}
     ],
     chosen: 'y',
-    submitDisable: false,
+    submitStat: 'init',
     playDisable: true,
   },
 
   onShow: function(options) {
-    console.log(this.data.TheEmotion)
-    this.getData()
-  },
-
-  radioChange: function(e) {
-    var tmp = e.detail.value
-    if (tmp == '一致') {
-      this.setData({chosen: 'y'})
-    }
-    else {
-      this.setDate({chosen: 'n'})
-    }
-   
-  },
-
-  next: function() {
-    console.log("next")
-    this.getData()
+    const that = this;
+    setTimeout(function() {
+      that.getData()
+    }, 500)
+    
   },
 
   submit_y: function() {
+    const that = this;
+    this.setData({
+      submitStat: 'wait',
+    })
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
       method: 'POST',
@@ -56,12 +49,16 @@ Page({
       },
       success: function (res) {
         console.log("submit data OK");
-        this.getData();
+        that.getData();
       }
     })
   },
 
   submit_n: function () {
+    const that = this;
+    this.setData({
+      submitStat: 'wait',
+    })
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
       method: 'POST',
@@ -76,7 +73,7 @@ Page({
       },
       success: function (res) {
         console.log("submit data OK");
-        this.getData();
+        that.getData();
       }
     })
   },
@@ -168,11 +165,13 @@ Page({
       url: 'https://hcsi.cs.tsinghua.edu.cn/get_rand_audio',
       method: 'GET',
       success: (res) => {
-        this.setData({TheEmotion: res.data.emotion,
+        this.setData({EmotionBefore: '听听这句话是否符合',
+                      TheEmotion: res.data.emotion,
+                      EmotionAfter: '的情感',
                       TheText: res.data.text,
-                      FileName: res.data.filename})
+                      FileName: res.data.filename,
+                      submitStat: 'submit'})
         console.log(this.data.FileName)
-        this.setData({ submitDisable: false })
       }
     })
   }
