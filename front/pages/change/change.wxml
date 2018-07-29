@@ -8,7 +8,7 @@
   
   <view class="btn-container">
     <view class="{{change_finish == 1?'view_hide':'bt-bt-container'}}">
-      <view bindtap="{{current_tag == 2?'play':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
+      <view bindtap="{{current_tag == 2?'playbefore':(current_tag == 1?'stop':'start')}}" class="{{current_tag == 2?'iconfont icon-playcircle playcircle-btn':(current_tag == 1?'iconfont icon-stop timeout-btn':'iconfont icon-sound sound-btn')}}"></view>
       <view class="bt-bt-container">
         <text class="text">{{current_tag == 2?'播放录音':(current_tag == 1?'停止录音':'开始录音')}}</text>
       </view>
@@ -18,13 +18,13 @@
       <view class="bt-bt-container">
         <view bindtap="play" class="iconfont icon-playcircle playcircle-btn"></view>
         <view class="bt-bt-container">
-          <text class="text">转换前录音</text>
+          <text class="text">无情感转换</text>
         </view>
       </view>
       <view class="bt-bt-container">
         <view bindtap="playafter" class="iconfont icon-playcircle playcircle-btn"></view>
         <view class="bt-bt-container">
-          <text class="text">转换后录音</text>
+          <text class="text">有情感转换</text>
         </view>
       </view>
     </view>
@@ -41,7 +41,7 @@
     <!--button bindtap="playafter" class='btn'>播放转换后录音</button-->
     </view>
     <view class="submit-button-container">
-    <button bindtap="goback" class = "btn btn-goback" disabled="{{change_finish == 1?submitDisable:(current_tag == null?'true':(current_tag == 1?'true':submitDisable))}}">{{change_finish == 1?'再试一次':'取消'}}</button>
-    <button bindtap="change" class = "{{change_finish == 1?'view_hide':'btn btn-uplo'}}" disabled="{{current_tag == null?'true':(current_tag == 1?'true':submitDisable)}}">转换</button>
+    <button bindtap="goback" class = "btn btn-goback" disabled="{{change_finish == 1?submitDisable:(change_start == 1?'true':(current_tag == null?'true':(current_tag == 1?'true':submitDisable)))}}">{{change_finish == 1?'再试一次':'取消'}}</button>
+    <button bindtap="uplo" class = "{{change_finish == 1?'view_hide':'btn btn-uplo'}}" disabled="{{change_start == 1?'true':(current_tag == null?'true':(current_tag == 1?'true':submitDisable))}}">转换</button>
     </view>
   </view>
