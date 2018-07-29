@@ -13,6 +13,8 @@ Page({
     change_start: null,
     change_finish: null,
     submitDisable: false,
+    normalFileName: '',
+    emotionFileName: '',
     src: ''
   },
   //事件处理函数
@@ -81,10 +83,11 @@ Page({
       url: '../index/index'
     })
   },
+
   uplo: function () {
     console.log("datasrc")
     console.log(this.data.src)
-    var that = this;
+    const that = this;
     this.setData({
       change_start: 1,
     })
@@ -96,20 +99,67 @@ Page({
         emotion: that.data.TheEmotion
       },
       success: res => {
-        const url = JSON.parse(res.data);//将这个url提交保存
-        console.log('yes')
-        console.log(that.data.src)
-        
-        wx.showToast({
-          title: '转换完成',
-          icon: 'succes',
-          duration: 1000,
-          mask: true
+        console.log('convert success')
+        console.log(res)
+        var temp = JSON.parse(res.data)
+        console.log(temp)
+        console.log(that)
+        that.setData({
+          emotionFileName: temp.filename
         })
+        console.log(that.data.emotionFileName)
+
+        const audio = wx.createInnerAudioContext()
+        audio.onPlay(() => {
+          console.log('开始播放')
+          this.setData({
+            playDisable: true
+          })
+        })
+        audio.onError((res) => {
+          console.log("errrrrrrrrrrrrrror")
+          console.log(res.errMsg)
+          console.log(res.errCode)
+          this.setData({
+            playDisable: false
+          })
+        })
+        audio.onEnded(() => {
+          console.log("end")
+          this.setData({
+            playDisable: false
+          })
+        })
+
+        var sysInfo = wx.getSystemInfoSync()
+        if (sysInfo.platform == 'ios') {
+        }
+
+        var src = 'https://hcsi.cs.tsinghua.edu.cn/download_audio?filename=' + encodeURI(that.data.emotionFileName)
+        console.log(src)
+
+        var downloadTask = wx.downloadFile({
+          url: src,
+          success: function (res) {
+            console.log(res)
+            var path = res.tempFilePath
+            console.log(path)
+            audio.src = path
+            audio.play()
+
+          },
+          fail: function ({ errMsg }) {
+            console.log('downloadFile fail, err is:', errMsg)
+          },
+        })
+        audio.title = "audio"
+        console.log(audio.src)
+        console.log("hhh")
+
+
       },
       fail: res => {
-        console.log('no')
-        console.log(that.data.src)
+        console.log('convert fail')
       },
     });
 
@@ -121,20 +171,12 @@ Page({
         emotion: that.data.TheEmotion
       },
       success: res => {
-        const url = JSON.parse(res.data);//将这个url提交保存
-        console.log('yes')
-        console.log(that.data.src)
-
-        wx.showToast({
-          title: '转换完成',
-          icon: 'succes',
-          duration: 1000,
-          mask: true
-        })
+        console.log('normal success')
+        that.normalFileName = res["filename"]
+        console.log(that.normalFileName)
       },
       fail: res => {
-        console.log('no')
-        console.log(that.data.src)
+        console.log('normal fail')
       },
     });
 

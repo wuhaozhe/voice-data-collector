@@ -97,6 +97,9 @@ Page({
       console.log("errrrrrrrrrrrrrror")
       console.log(res.errMsg)
       console.log(res.errCode)
+      this.setData({
+        playDisable: false
+      })
     })
     audio.onEnded(() => {
       console.log("end")

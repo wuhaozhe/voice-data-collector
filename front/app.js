@@ -6,6 +6,24 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    wx.getSetting({
+      success: (response) => {
+        console.log(response)
+        if (!response.authSetting['scope.record']) {
+          wx.openSetting({
+            success: (res) => {
+              /*
+               * res.authSetting = {
+               *   "scope.userInfo": true,
+               *   "scope.userLocation": true
+               * }
+               */
+            }
+          })
+        }
+      }
+    })
+
     // 登录
     wx.login({
       success: res => {
