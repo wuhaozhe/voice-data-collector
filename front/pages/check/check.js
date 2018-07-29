@@ -20,6 +20,7 @@ Page({
     chosen: 'y',
     submitStat: 'init',
     playDisable: false,
+    audio: null,
   },
 
   onShow: function(options) {
@@ -28,14 +29,45 @@ Page({
     setTimeout(function() {
       that.getData()
     }, 1000)
-    
+
+    // set audio
+    var temp = wx.createInnerAudioContext()
+    temp.onPlay(() => {
+      console.log('开始播放')
+      this.setData({
+        playDisable: true
+      })
+    })
+    temp.onError((res) => {
+      console.log("播放错误")
+      console.log(res.errMsg)
+      console.log(res.errCode)
+      this.setData({
+        playDisable: false
+      })
+    })
+    temp.onEnded(() => {
+      console.log("播放结束")
+      this.setData({
+        playDisable: false
+      })
+    })
+    temp.onStop(() => {
+      console.log("播放终止")
+    })
+    temp.title = "audio"
+    this.setData({ audio: temp })
+
   },
 
   submit_y: function() {
-    const that = this;
     this.setData({
       submitStat: 'wait',
+      playDisable: true,
     })
+    this.data.audio.stop();
+
+    const that = this;
     wx.request({
       url: 'https://hcsi.cs.tsinghua.edu.cn/user_feedback',
       method: 'POST',
@@ -85,28 +117,9 @@ Page({
 
   //播放声音
   play: function () {
-    const audio = wx.createInnerAudioContext()
+    
     const that = this;
-    audio.onPlay(() => {
-      console.log('开始播放')
-      this.setData({
-        playDisable: true
-      })
-    })
-    audio.onError((res) => {
-      console.log("errrrrrrrrrrrrrror")
-      console.log(res.errMsg)
-      console.log(res.errCode)
-      this.setData({
-        playDisable: false
-      })
-    })
-    audio.onEnded(() => {
-      console.log("end")
-      this.setData({
-        playDisable: false
-      })
-    })
+    
 
     var sysInfo = wx.getSystemInfoSync()
     if (sysInfo.platform == 'ios') {
@@ -121,17 +134,15 @@ Page({
         console.log(res)
         var path = res.tempFilePath
         console.log(path)
-        audio.src = path
-        audio.play()
+        that.data.audio.src = path
+        that.data.audio.play()
 
       },
       fail: function ({ errMsg }) {
         console.log('downloadFile fail, err is:', errMsg)
       },
     })
-    audio.title = "audio"
-    console.log(audio.src)
-    console.log("hhh")
+    console.log(that.data.audio.src)
   },
   bindViewTap: function() {
     wx.navigateTo({

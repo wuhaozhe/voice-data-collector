@@ -86,3 +86,7 @@ page {
 .usermotto {
   margin-top: 20px;
 }
+
+.hint-text {
+  
+}
